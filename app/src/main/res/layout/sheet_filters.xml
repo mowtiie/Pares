@@ -99,8 +99,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="4dp"
                 android:layout_weight="1"
-                android:hint="Min age"
-                app:helperText="Optional">
+                android:hint="Min age">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etAgeMin"
@@ -116,8 +115,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
                 android:layout_weight="1"
-                android:hint="Max age"
-                app:helperText="Optional">
+                android:hint="Max age">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etAgeMax"

@@ -20,8 +20,7 @@
         android:layout_marginBottom="8dp"
         android:hint="What's on your mind?"
         app:counterEnabled="true"
-        app:counterMaxLength="280"
-        app:helperText="Up to 280 characters">
+        app:counterMaxLength="280">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etPost"

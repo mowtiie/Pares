@@ -62,8 +62,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:hint="Maximum age"
-                app:helperText="Not lower than the minimum">
+                android:hint="Maximum age">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etAgeMax"

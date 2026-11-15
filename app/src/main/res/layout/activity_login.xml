@@ -33,8 +33,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:hint="Email or phone"
-            app:helperText="Your email or 10 to 13 digit phone number">
+            android:hint="Email or phone">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etIdentifier"
@@ -49,8 +48,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:hint="Password"
-            app:endIconMode="password_toggle"
-            app:helperText="Demo: free@demo.com / demo1234">
+            app:endIconMode="password_toggle">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etPassword"

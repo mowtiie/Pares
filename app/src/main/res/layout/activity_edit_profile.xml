@@ -152,8 +152,7 @@
                 android:layout_marginBottom="16dp"
                 android:hint="Bio"
                 app:counterEnabled="true"
-                app:counterMaxLength="140"
-                app:helperText="Up to 140 characters">
+                app:counterMaxLength="140">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etBio"

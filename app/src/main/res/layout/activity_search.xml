@@ -19,8 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:hint="Keyword"
-        app:helperText="A name for People, a word for Posts">
+        android:hint="Keyword">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etKeyword"

@@ -140,8 +140,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:hint="Account email"
-                    android:visibility="gone"
-                    app:helperText="Format: name@example.com">
+                    android:visibility="gone">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etOnlineEmail"

@@ -59,8 +59,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:hint="Email"
-                app:helperText="Format: name@example.com">
+                android:hint="Email">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etEmail"
