@@ -46,6 +46,8 @@ public class Data {
     public static final String PLAN_ANNUAL = "ANNUAL";
 
     public static final int DAILY_LIMIT = 10;
+    public static final int PRICE_MONTHLY = 12;
+    public static final int PRICE_ANNUAL = 100;
 
     public static final int LOGIN_OK = 0;
     public static final int LOGIN_INVALID = 1;
@@ -426,6 +428,79 @@ public class Data {
 
     public static void deleteRow(Context context, String table, String id) {
         db(context).delete(table, "id = ?", new String[]{id});
+    }
+
+    public static boolean canChat(Context context, String otherId) {
+        if (isMatched(context, otherId)) {
+            return true;
+        }
+        if (!ROLE_PREMIUM.equals(USER_ROLE)) {
+            return false;
+        }
+        return !value(context, "SELECT 1 FROM users WHERE id = ? AND visibility = 'PUBLIC' AND status = 'ACTIVE' AND role <> 'ADMIN'" + notBlocked("id"), otherId, me(), me()).isEmpty();
+    }
+
+    public static void setVisibility(Context context, String visibility) {
+        ContentValues values = new ContentValues();
+        values.put("visibility", visibility);
+        db(context).update("users", values, "id = ?", new String[]{me()});
+        USER_VISIBILITY = visibility;
+    }
+
+    public static void upgrade(Context context, String plan, String method) {
+        boolean monthly = PLAN_MONTHLY.equals(plan);
+        ContentValues payment = new ContentValues();
+        payment.put("user_id", me());
+        payment.put("plan", plan);
+        payment.put("amount", monthly ? PRICE_MONTHLY : PRICE_ANNUAL);
+        payment.put("method", method);
+        payment.put("time", now());
+        db(context).insert("payments", null, payment);
+        ContentValues user = new ContentValues();
+        user.put("role", ROLE_PREMIUM);
+        user.put("premium_plan", plan);
+        user.put("premium_until", dateAfterDays(monthly ? 30 : 365));
+        db(context).update("users", user, "id = ?", new String[]{me()});
+        loadUser(context, USER_ID);
+    }
+
+    public static boolean likeFromSearch(Context context, String targetId) {
+        if (!value(context, "SELECT 1 FROM swipes WHERE user_id = ? AND target_id = ? AND action = 'LIKE'", me(), targetId).isEmpty()) {
+            return false;
+        }
+        ContentValues values = new ContentValues();
+        values.put("user_id", me());
+        values.put("target_id", targetId);
+        values.put("day", "SEARCH");
+        values.put("action", ACTION_LIKE);
+        db(context).insert("swipes", null, values);
+        return afterLike(context, targetId);
+    }
+
+    public static void setColumn(Context context, String table, String id, String column, String value) {
+        ContentValues values = new ContentValues();
+        values.put(column, value);
+        db(context).update(table, values, "id = ?", new String[]{id});
+    }
+
+    public static void deleteUser(Context context, String id) {
+        String[] statements = {
+                "DELETE FROM post_likes WHERE user_id = ?1 OR post_id IN (SELECT id FROM posts WHERE user_id = ?1)",
+                "DELETE FROM comments WHERE user_id = ?1 OR post_id IN (SELECT id FROM posts WHERE user_id = ?1)",
+                "DELETE FROM posts WHERE user_id = ?1",
+                "DELETE FROM swipes WHERE user_id = ?1 OR target_id = ?1",
+                "DELETE FROM matches WHERE user_a = ?1 OR user_b = ?1",
+                "DELETE FROM messages WHERE sender_id = ?1 OR receiver_id = ?1",
+                "DELETE FROM follows WHERE follower_id = ?1 OR followee_id = ?1",
+                "DELETE FROM blocks WHERE blocker_id = ?1 OR blocked_id = ?1",
+                "DELETE FROM reports WHERE reporter_id = ?1 OR (target_type = 'PROFILE' AND target_id = ?1)",
+                "DELETE FROM notifications WHERE user_id = ?1",
+                "DELETE FROM payments WHERE user_id = ?1",
+                "DELETE FROM users WHERE id = ?1"
+        };
+        for (String statement : statements) {
+            db(context).execSQL(statement, new Object[]{id});
+        }
     }
 
     public static String cannedReply() {

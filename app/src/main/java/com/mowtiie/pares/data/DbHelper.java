@@ -9,7 +9,7 @@ import java.util.Locale;
 
 public class DbHelper extends SQLiteOpenHelper {
 
-    public static final int DATABASE_VERSION = 3;
+    public static final int DATABASE_VERSION = 4;
     public static final String DATABASE_NAME = "pares.db";
 
     private static final String[] TABLES = {
@@ -127,10 +127,26 @@ public class DbHelper extends SQLiteOpenHelper {
             db.insert("follows", null, follow);
         }
 
+        addPayment(db, 2, Data.PLAN_ANNUAL, Data.PRICE_ANNUAL, "Credit card", Data.dateAfterDays(-165));
+        for (int i = 0; i < 32; i += 6) {
+            boolean monthly = i % 12 == 0;
+            addPayment(db, 5 + i, monthly ? Data.PLAN_MONTHLY : Data.PLAN_ANNUAL, monthly ? Data.PRICE_MONTHLY : Data.PRICE_ANNUAL, monthly ? "E-wallet" : "Debit card", Data.dateAfterDays(-(i % 5)));
+        }
+
         addReport(db, 1, Data.TARGET_PROFILE, 25, "Fake profile", Data.REPORT_OPEN);
         addReport(db, 2, Data.TARGET_POST, 3, "Spam", Data.REPORT_OPEN);
         addReport(db, 6, Data.TARGET_MESSAGE, 1, "Harassment", Data.REPORT_OPEN);
         addReport(db, 8, Data.TARGET_PROFILE, 30, "Inappropriate content", Data.REPORT_RESOLVED);
+    }
+
+    private void addPayment(SQLiteDatabase db, int userId, String plan, int amount, String method, String day) {
+        ContentValues values = new ContentValues();
+        values.put("user_id", userId);
+        values.put("plan", plan);
+        values.put("amount", amount);
+        values.put("method", method);
+        values.put("time", day + " 12:00");
+        db.insert("payments", null, values);
     }
 
     private void addComment(SQLiteDatabase db, int postId, int userId, String body) {
