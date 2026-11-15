@@ -61,7 +61,7 @@ public class ChatActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (!Data.isMatched(this, otherId)) {
+        if (!Data.canChat(this, otherId)) {
             finish();
             return;
         }

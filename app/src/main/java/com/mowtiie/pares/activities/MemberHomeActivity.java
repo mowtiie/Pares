@@ -17,8 +17,7 @@ public class MemberHomeActivity extends AppCompatActivity {
 
     private static final Class<?>[] SCREENS = {
             DiscoverActivity.class, MatchesActivity.class, NotificationsActivity.class,
-            FeedActivity.class, SearchActivity.class, FollowListActivity.class,
-            EditProfileActivity.class, PreferencesActivity.class
+            FeedActivity.class, SearchActivity.class, FollowListActivity.class, ProfileActivity.class
     };
 
     private ActivityMemberHomeBinding binding;
@@ -35,10 +34,6 @@ public class MemberHomeActivity extends AppCompatActivity {
         binding = ActivityMemberHomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        binding.toolbar.setOnMenuItemClickListener(item -> {
-            logout();
-            return true;
-        });
 
         adapter = new GenericAdapter<>(new ArrayList<>(), (b, item, position) -> {
             b.tvTitle.setText(item[0]);
@@ -56,6 +51,7 @@ public class MemberHomeActivity extends AppCompatActivity {
         if (binding == null) {
             return;
         }
+        Data.loadUser(this, Data.USER_ID);
         binding.tvWelcome.setText("Welcome, " + Data.USER_FIRST_NAME + " " + Data.USER_LAST_NAME);
         binding.tvRole.setText("Role: " + Data.USER_ROLE);
 
@@ -67,8 +63,7 @@ public class MemberHomeActivity extends AppCompatActivity {
         items.add(new String[]{"Feed", "Posts, likes and comments", ""});
         items.add(new String[]{"Search", "Find people and posts", ""});
         items.add(new String[]{"Followers and following", "Who follows you", ""});
-        items.add(new String[]{"Edit profile", "Bio, hobbies and avatar", ""});
-        items.add(new String[]{"Preferences", "Who you want to meet", ""});
+        items.add(new String[]{"Profile", "Your details, plan and settings", Data.ROLE_PREMIUM.equals(Data.USER_ROLE) ? "Premium" : "Free"});
         adapter.setItems(items);
     }
 

@@ -85,7 +85,7 @@ public class ProfileViewActivity extends AppCompatActivity {
 
     private void refresh() {
         boolean matched = Data.isMatched(this, userId);
-        binding.btnChat.setVisibility(matched ? View.VISIBLE : View.GONE);
+        binding.btnChat.setVisibility(!own && Data.canChat(this, userId) ? View.VISIBLE : View.GONE);
         binding.btnFollow.setVisibility(own ? View.GONE : View.VISIBLE);
         binding.btnFollow.setText(Data.isFollowing(this, userId) ? "Following" : "Follow");
         binding.toolbar.getMenu().findItem(R.id.action_report).setVisible(!own);
