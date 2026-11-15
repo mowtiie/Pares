@@ -43,7 +43,8 @@ public class FeedActivity extends AppCompatActivity {
         adapter = new GenericAdapter<>(new ArrayList<>(), (b, item, position) -> {
             b.tvTitle.setText(item[2]);
             b.tvSubtitle.setText(item[3]);
-            b.tvMeta.setText(item[5] + " likes • " + item[6] + " comments • " + item[4]);
+            b.tvMeta.setText(item[5] + (item[5].equals("1") ? " like • " : " likes • ")
+                    + item[6] + (item[6].equals("1") ? " comment • " : " comments • ") + item[4]);
             b.btnAction.setVisibility(View.VISIBLE);
             b.btnAction.setText(item[7].equals("1") ? "Liked" : "Like");
             b.btnAction.setOnClickListener(v -> toggleLike(item[0], item[7].equals("1")));

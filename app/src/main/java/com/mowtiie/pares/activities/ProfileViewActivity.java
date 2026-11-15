@@ -93,7 +93,7 @@ public class ProfileViewActivity extends AppCompatActivity {
         binding.toolbar.getMenu().findItem(R.id.action_unmatch).setVisible(matched);
         String followers = Data.value(this, "SELECT COUNT(*) FROM follows WHERE followee_id = ?", userId);
         String following = Data.value(this, "SELECT COUNT(*) FROM follows WHERE follower_id = ?", userId);
-        binding.tvCounts.setText(followers + " followers • " + following + " following");
+        binding.tvCounts.setText(followers + (followers.equals("1") ? " follower • " : " followers • ") + following + " following");
     }
 
     private void openChat() {
