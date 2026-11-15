@@ -63,6 +63,27 @@
         <activity
             android:name=".activities.SearchActivity"
             android:exported="false" />
+        <activity
+            android:name=".activities.ProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.PremiumActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.PaymentActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.AdminUsersActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.AdminModerationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.AdminAnalyticsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.AdminReportsActivity"
+            android:exported="false" />
     </application>
 
 </manifest>
