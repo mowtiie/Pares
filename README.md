@@ -177,7 +177,7 @@ Certificate fingerprints:
 
 ### PGP Signing
 
-As an additional layer on top of the Android signature above, each release is also signed with my PGP key. While `apksigner` confirms the APK itself is intact, a PGP signature confirms that *I* am the one who published this specific file to GitHub — an independent check that doesn't rely on GitHub's account security alone.
+As an additional layer on top of the Android signature above, each release is also signed with my PGP key. While `apksigner` confirms the APK itself is intact, a PGP signature confirms that *I* am the one who published this specific file to GitHub, an independent check that doesn't rely on GitHub's account security alone.
 
 **Public key fingerprint:**
 ```
@@ -191,7 +191,7 @@ curl -O https://mowtiie.cc/PGP_PUBLIC_KEY.asc
 gpg --import PGP_PUBLIC_KEY.asc
 ```
 
-After importing, confirm the fingerprint printed by GPG matches the one listed above — that match is what actually establishes trust, not the import step itself. Fetching the key over HTTPS from a domain you already trust is arguably a stronger anchor than a keyserver, since keyservers accept uploads from anyone and don't vouch for identity.
+After importing, confirm the fingerprint printed by GPG matches the one listed above. That match is what actually establishes trust, not the import step itself. Fetching the key over HTTPS from a domain you already trust is arguably a stronger anchor than a keyserver, since keyservers accept uploads from anyone and don't vouch for identity.
 
 Each release includes a detached `.asc` signature alongside the APK. Verify a downloaded release with:
 
@@ -205,7 +205,7 @@ A valid signature looks like:
 Good signature from "Mowtiie <mowtiie.dev@gmail.com>"
 ```
 
-**Note:** PGP signing is a supplementary trust measure, not a substitute for the `apksigner` check above — verify both if you want the highest confidence that a release is genuine and unmodified.
+**Note:** PGP signing is a supplementary trust measure, not a substitute for the `apksigner` check above. Verify both if you want the highest confidence that a release is genuine and unmodified.
 
 ## License
 
