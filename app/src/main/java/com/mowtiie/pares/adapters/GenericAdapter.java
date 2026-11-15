@@ -1,6 +1,7 @@
 package com.mowtiie.pares.adapters;
 
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -47,6 +48,8 @@ public class GenericAdapter<T> extends RecyclerView.Adapter<GenericAdapter.Holde
     @Override
     public void onBindViewHolder(@NonNull Holder holder, int position) {
         binder.bind(holder.binding, items.get(position), position);
+        holder.binding.tvSubtitle.setVisibility(holder.binding.tvSubtitle.length() == 0 ? View.GONE : View.VISIBLE);
+        holder.binding.tvMeta.setVisibility(holder.binding.tvMeta.length() == 0 ? View.GONE : View.VISIBLE);
     }
 
     @Override
